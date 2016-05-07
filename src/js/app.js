@@ -3,45 +3,59 @@ import 'babel-polyfill';
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { IndexRoute, Router, Route, Link, browserHistory } from 'react-router';
 
 import Camera from './components/Camera';
 import Cursor from './components/Cursor';
 import Sky from './components/Sky';
+import MusicSets from './components/MusicSets';
+import MusicSet from './components/MusicSet';
+import Assets from './components/Assets';
+/**
+  Sky
+  <video id="fest" autoPlay loop="true" src="img/derp.mp4"/>
 
-class BoilerplateScene extends React.Component {
+*/
+
+class MainAppScene extends React.Component {
+
   constructor(props) {
     super(props);
-    this.state = {
-      color: 'red'
-    }
   }
 
-  changeColor = () => {
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
-    this.setState({
-      color: colors[Math.floor(Math.random() * colors.length)],
-    });
-  };
-
-  render () {
+  render() {
     return (
       <Scene>
         <Camera><Cursor/></Camera>
 
-        <Sky/>
+        <Assets>
+          <img id="please" src="img/webvr.png"/>
+          <img id="start" src="img/start.jpg"/>
+          <video id="city" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
+              autoplay loop/>
+        </Assets>
 
-        <Entity light={{type: 'ambient', color: '#888'}}/>
-        <Entity light={{type: 'directional', intensity: 0.5}} position={[-1, 1, 0]}/>
-        <Entity light={{type: 'directional', intensity: 1}} position={[1, 1, 0]}/>
+        {this.props.children}
 
-        <Entity geometry="primitive: box" material={{color: this.state.color}}
-                onClick={this.changeColor}
-                position="0 0 -5">
-          <Animation attribute="rotation" dur="5000" repeat="indefinite" to="0 360 360"/>
-        </Entity>
       </Scene>
     );
   }
 }
 
-ReactDOM.render(<BoilerplateScene/>, document.querySelector('.scene-container'));
+
+class NoMatch extends React.Component {
+
+}
+
+
+
+ReactDOM.render((
+    <Router history={browserHistory}>
+      <Route path='/' component={MainAppScene}>
+        <IndexRoute component={MusicSets}/>
+        <Route path='music/:setId' component={MusicSet} />
+        <Route path='*' component={NoMatch} />
+      </Route>
+    </Router>
+  ),
+  document.querySelector('.scene-container'));
