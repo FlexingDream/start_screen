@@ -35,7 +35,7 @@ class MainAppScene extends React.Component {
           <img id="start" src="img/start.jpg"/>
           <img id="instr" src="img/instr.png"/>
           <video id="city" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
-              autoplay loop/>
+              autoplay loop webkit-playsinline/>
         </Assets>
 
         {this.props.children}
