@@ -136,7 +136,7 @@
 	          _react2.default.createElement('img', { id: 'start', src: 'img/start.jpg' }),
 	          _react2.default.createElement('img', { id: 'instr', src: 'img/instr.png' }),
 	          _react2.default.createElement('video', { id: 'city', src: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
-	            autoplay: true, loop: true })
+	            autoplay: true, loop: true, 'webkit-playsinline': true })
 	        ),
 	        this.props.children
 	      );
