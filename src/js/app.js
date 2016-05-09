@@ -26,11 +26,14 @@ class MainAppScene extends React.Component {
   render() {
     return (
       <Scene>
-        <Camera><Cursor/></Camera>
+        <Camera>
+          <Cursor cursor={{fuse: true}} color="black"/>
+        </Camera>
 
         <Assets>
           <img id="please" src="img/webvr.png"/>
           <img id="start" src="img/start.jpg"/>
+          <img id="instr" src="img/instr.png"/>
           <video id="city" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
               autoplay loop/>
         </Assets>
