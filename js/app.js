@@ -47,8 +47,11 @@ class MainAppScene extends React.Component {
 
 
 class NoMatch extends React.Component {
-
+  render(){
+    return (<h1>404 Not Found</h1>);
+  }
 }
+
 
 
 
