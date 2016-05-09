@@ -3,7 +3,10 @@ import {Animation, Entity, Scene} from 'aframe-react';
 import {browserHistory} from 'react-router';
 import AImage from './AImage';
 import Sky from './Sky';
+import Camera from './Camera';
+import Cursor from './Cursor';
 import VideoSphere from './VideoSphere';
+import Assets from './Assets';
 /**
 <Entity>
   <Entity light={{type: 'ambient', color: '#888'}}/>
@@ -51,6 +54,13 @@ import VideoSphere from './VideoSphere';
           {animations}
         </Entity>
 
+        <VideoSphere key={set.name}
+                     src="#wow"
+                     radius="0.5"
+                     position={set.position}
+                     onClick={this.setupClickCallback(idx)}>
+          {animations}
+        </VideoSphere>
 */
 
 class MusicSets extends React.Component {
@@ -112,11 +122,14 @@ class MusicSets extends React.Component {
       this.setState({
         setSelectedIndex: idxClicked
       });
+      this.timer = setTimeout(()=> {
+        this.linkToSets();
+      }, 5000);
     }
   }
 
   linkToSets = () => {
-    browserHistory.push('music/kpop');
+    browserHistory.push('musicset/kpop');
   }
 
   render(){
@@ -130,60 +143,79 @@ class MusicSets extends React.Component {
               height="1"
               /> : null;
     return (
-      <Entity>
+      <Scene>
+        <Camera>
+          <Cursor cursor={{fuse: true}} color="black"/>
+        </Camera>
 
-        {instr}
+        <Assets>
+          <img id="please" src="img/webvr.png"/>
+          <img id="start" src="img/start.jpg"/>
+          <img id="instr" src="img/instr.png"/>
+          <video id="city" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
+              autoplay loop webkit-playsinline/>
+          <video id="wow" src="img/gavin-v2-low.mp4"
+              autoplay loop webkit-playsinline/>
+        </Assets>
 
-        {this.state.sets.map((set, idx) => {
+        <Entity>
 
-          // Something got selected.
-          let animations;
-          if (this.state.setSelectedIndex !== null){
+          {instr}
 
-            // If its the current one.
-            if (idx == this.state.setSelectedIndex ){
+          {this.state.sets.map((set, idx) => {
 
-              // Set clicked animation.
-              animations = <Animation easing="ease-in"
-                                      attribute="geometry.radius"
-                                      dur="10000" to="5000"
-                                      />;
+            // Something got selected.
+            let animations;
+            if (this.state.setSelectedIndex !== null){
 
-            } else { // Not the clicked one.
+              // If its the current one.
+              if (idx == this.state.setSelectedIndex ){
 
-              // Make it disappear.
-              animations = <Animation easing="ease-in" attribute="visible"
-                                      dur="3000" to="false"/>;
+                // Set clicked animation.
+                animations = <Animation easing="ease-in"
+                                        attribute="geometry.radius"
+                                        dur="10000" to="5000"
+                                        />;
 
+              } else { // Not the clicked one.
+
+                // Make it disappear.
+                animations = <Animation easing="ease-in" attribute="visible"
+                                        dur="3000" to="false"/>;
+
+              }
+
+            } else { // Nothing selected, default animations.
+              animations = [
+                <Animation key={idx +'_enter'} begin="mouseenter"
+                           easing="ease-in" attribute="geometry.radius"
+                           dur="200" from="0.5" to="1"
+                           />,
+                <Animation key={idx +'_leave'} begin="mouseleave"
+                           easing="ease-in" attribute="geometry.radius"
+                           dur="200" from="1" to="0.5"
+                           />
+              ];
             }
 
-          } else { // Nothing selected, default animations.
-            animations = [
-              <Animation key={idx +'_enter'} begin="mouseenter"
-                         easing="ease-in" attribute="geometry.radius"
-                         dur="200" from="0.5" to="1"
-                         />,
-              <Animation key={idx +'_leave'} begin="mouseleave"
-                         easing="ease-in" attribute="geometry.radius"
-                         dur="200" from="1" to="0.5"
-                         />
-            ];
-          }
+            return (
 
-          return (
-            <VideoSphere key={set.name}
-                         src="#city"
-                         radius="0.5"
-                         position={set.position}
-                         onClick={this.setupClickCallback(idx)}>
-              {animations}
-            </VideoSphere>
-          )
-        })}
+              <Entity key={set.name}
+                      geometry={{primitive: 'sphere', radius: 0.5}}
+                      material={{color: set.colour, shader: 'flat'}}
+                      position={set.position} scale="1 1 -1"
+                      onClick={this.setupClickCallback(idx)}>
+                {animations}
+              </Entity>
+            )
+          })}
 
-        {sky}
+          {sky}
 
-      </Entity>
+        </Entity>
+
+      </Scene>
+
     );
   }
 }

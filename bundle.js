@@ -71,29 +71,25 @@
 
 	var _reactRouter = __webpack_require__(460);
 
-	var _Camera = __webpack_require__(521);
-
-	var _Camera2 = _interopRequireDefault(_Camera);
-
-	var _Cursor = __webpack_require__(522);
-
-	var _Cursor2 = _interopRequireDefault(_Cursor);
-
-	var _Sky = __webpack_require__(523);
+	var _Sky = __webpack_require__(521);
 
 	var _Sky2 = _interopRequireDefault(_Sky);
 
-	var _MusicSets = __webpack_require__(524);
+	var _MusicSets = __webpack_require__(522);
 
 	var _MusicSets2 = _interopRequireDefault(_MusicSets);
 
-	var _MusicSet = __webpack_require__(527);
+	var _MusicSet = __webpack_require__(528);
 
 	var _MusicSet2 = _interopRequireDefault(_MusicSet);
 
-	var _Assets = __webpack_require__(528);
+	var _Assets = __webpack_require__(527);
 
 	var _Assets2 = _interopRequireDefault(_Assets);
+
+	var _PuaMainScene = __webpack_require__(529);
+
+	var _PuaMainScene2 = _interopRequireDefault(_PuaMainScene);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -107,6 +103,25 @@
 	  Sky
 	  <video id="fest" autoPlay loop="true" src="img/derp.mp4"/>
 
+
+	  <Scene>
+	    <Camera>
+	      <Cursor cursor={{fuse: true}} color="black"/>
+	    </Camera>
+
+	    <Assets>
+	      <img id="please" src="img/webvr.png"/>
+	      <img id="start" src="img/start.jpg"/>
+	      <img id="instr" src="img/instr.png"/>
+	      <video id="city" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
+	          autoplay loop webkit-playsinline/>
+	      <video id="wow" src="img/gavin-v2-low.mp4"
+	          autoplay loop webkit-playsinline/>
+	    </Assets>
+
+	    {this.props.children}
+
+	  </Scene>
 	*/
 
 	var MainAppScene = function (_React$Component) {
@@ -121,25 +136,7 @@
 	  _createClass(MainAppScene, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        _aframeReact.Scene,
-	        null,
-	        _react2.default.createElement(
-	          _Camera2.default,
-	          null,
-	          _react2.default.createElement(_Cursor2.default, { cursor: { fuse: true }, color: 'black' })
-	        ),
-	        _react2.default.createElement(
-	          _Assets2.default,
-	          null,
-	          _react2.default.createElement('img', { id: 'please', src: 'img/webvr.png' }),
-	          _react2.default.createElement('img', { id: 'start', src: 'img/start.jpg' }),
-	          _react2.default.createElement('img', { id: 'instr', src: 'img/instr.png' }),
-	          _react2.default.createElement('video', { id: 'city', src: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
-	            autoplay: true, loop: true, 'webkit-playsinline': true })
-	        ),
-	        this.props.children
-	      );
+	      return this.props.children;
 	    }
 	  }]);
 
@@ -176,7 +173,7 @@
 	    _reactRouter.Route,
 	    { path: 'start_screen/', component: MainAppScene },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _MusicSets2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'music/:setId', component: _MusicSet2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'musicset/:setId', component: _PuaMainScene2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '*', component: NoMatch })
 	  )
 	), document.querySelector('.scene-container'));
@@ -94373,75 +94370,6 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _aframeReact = __webpack_require__(301);
-
-	var _react = __webpack_require__(302);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    _aframeReact.Entity,
-	    null,
-	    _react2.default.createElement(_aframeReact.Entity, _extends({ id: 'camera', camera: '', 'look-controls': '', 'wasd-controls': '' }, props))
-	  );
-	};
-
-/***/ },
-/* 522 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _aframeReact = __webpack_require__(301);
-
-	var _react = __webpack_require__(302);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (props) {
-	  var geometry = {
-	    primitive: 'ring',
-	    radiusInner: 0.01,
-	    radiusOuter: 0.016
-	  };
-	  var material = {
-	    color: props.color,
-	    shader: 'flat',
-	    opacity: props.opacity || 0.9,
-	    transparent: true
-	  };
-	  return _react2.default.createElement(
-	    _aframeReact.Entity,
-	    { cursor: props.cursor, geometry: geometry, material: material, position: '0 0 -1' },
-	    _react2.default.createElement(_aframeReact.Animation, { attribute: 'scale', begin: 'click', dur: '150', fill: 'backwards',
-	      to: '0 0 0' }),
-	    _react2.default.createElement(_aframeReact.Animation, { attribute: 'scale', begin: 'fusing', easing: 'ease-in',
-	      fill: 'forwards', from: '1 1 1', to: '0.1 0.1 0.1',
-	      dur: '1500' })
-	  );
-	};
-
-/***/ },
-/* 523 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
 	        value: true
 	});
 
@@ -94460,7 +94388,7 @@
 	};
 
 /***/ },
-/* 524 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94479,17 +94407,29 @@
 
 	var _reactRouter = __webpack_require__(460);
 
-	var _AImage = __webpack_require__(525);
+	var _AImage = __webpack_require__(523);
 
 	var _AImage2 = _interopRequireDefault(_AImage);
 
-	var _Sky = __webpack_require__(523);
+	var _Sky = __webpack_require__(521);
 
 	var _Sky2 = _interopRequireDefault(_Sky);
+
+	var _Camera = __webpack_require__(524);
+
+	var _Camera2 = _interopRequireDefault(_Camera);
+
+	var _Cursor = __webpack_require__(525);
+
+	var _Cursor2 = _interopRequireDefault(_Cursor);
 
 	var _VideoSphere = __webpack_require__(526);
 
 	var _VideoSphere2 = _interopRequireDefault(_VideoSphere);
+
+	var _Assets = __webpack_require__(527);
+
+	var _Assets2 = _interopRequireDefault(_Assets);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -94546,6 +94486,13 @@
 	          {animations}
 	        </Entity>
 
+	        <VideoSphere key={set.name}
+	                     src="#wow"
+	                     radius="0.5"
+	                     position={set.position}
+	                     onClick={this.setupClickCallback(idx)}>
+	          {animations}
+	        </VideoSphere>
 	*/
 
 	var MusicSets = function (_React$Component) {
@@ -94580,11 +94527,14 @@
 	        _this.setState({
 	          setSelectedIndex: idxClicked
 	        });
+	        _this.timer = setTimeout(function () {
+	          _this.linkToSets();
+	        }, 5000);
 	      };
 	    };
 
 	    _this.linkToSets = function () {
-	      _reactRouter.browserHistory.push('music/kpop');
+	      _reactRouter.browserHistory.push('musicset/kpop');
 	    };
 
 	    _this.timer = null;
@@ -94633,52 +94583,72 @@
 	        height: '1'
 	      }) : null;
 	      return _react2.default.createElement(
-	        _aframeReact.Entity,
+	        _aframeReact.Scene,
 	        null,
-	        instr,
-	        this.state.sets.map(function (set, idx) {
+	        _react2.default.createElement(
+	          _Camera2.default,
+	          null,
+	          _react2.default.createElement(_Cursor2.default, { cursor: { fuse: true }, color: 'black' })
+	        ),
+	        _react2.default.createElement(
+	          _Assets2.default,
+	          null,
+	          _react2.default.createElement('img', { id: 'please', src: 'img/webvr.png' }),
+	          _react2.default.createElement('img', { id: 'start', src: 'img/start.jpg' }),
+	          _react2.default.createElement('img', { id: 'instr', src: 'img/instr.png' }),
+	          _react2.default.createElement('video', { id: 'city', src: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
+	            autoplay: true, loop: true, 'webkit-playsinline': true }),
+	          _react2.default.createElement('video', { id: 'wow', src: 'img/gavin-v2-low.mp4',
+	            autoplay: true, loop: true, 'webkit-playsinline': true })
+	        ),
+	        _react2.default.createElement(
+	          _aframeReact.Entity,
+	          null,
+	          instr,
+	          this.state.sets.map(function (set, idx) {
 
-	          // Something got selected.
-	          var animations = void 0;
-	          if (_this2.state.setSelectedIndex !== null) {
+	            // Something got selected.
+	            var animations = void 0;
+	            if (_this2.state.setSelectedIndex !== null) {
 
-	            // If its the current one.
-	            if (idx == _this2.state.setSelectedIndex) {
+	              // If its the current one.
+	              if (idx == _this2.state.setSelectedIndex) {
 
-	              // Set clicked animation.
-	              animations = _react2.default.createElement(_aframeReact.Animation, { easing: 'ease-in',
-	                attribute: 'geometry.radius',
-	                dur: '10000', to: '5000'
-	              });
+	                // Set clicked animation.
+	                animations = _react2.default.createElement(_aframeReact.Animation, { easing: 'ease-in',
+	                  attribute: 'geometry.radius',
+	                  dur: '10000', to: '5000'
+	                });
+	              } else {
+	                // Not the clicked one.
+
+	                // Make it disappear.
+	                animations = _react2.default.createElement(_aframeReact.Animation, { easing: 'ease-in', attribute: 'visible',
+	                  dur: '3000', to: 'false' });
+	              }
 	            } else {
-	              // Not the clicked one.
-
-	              // Make it disappear.
-	              animations = _react2.default.createElement(_aframeReact.Animation, { easing: 'ease-in', attribute: 'visible',
-	                dur: '3000', to: 'false' });
+	              // Nothing selected, default animations.
+	              animations = [_react2.default.createElement(_aframeReact.Animation, { key: idx + '_enter', begin: 'mouseenter',
+	                easing: 'ease-in', attribute: 'geometry.radius',
+	                dur: '200', from: '0.5', to: '1'
+	              }), _react2.default.createElement(_aframeReact.Animation, { key: idx + '_leave', begin: 'mouseleave',
+	                easing: 'ease-in', attribute: 'geometry.radius',
+	                dur: '200', from: '1', to: '0.5'
+	              })];
 	            }
-	          } else {
-	            // Nothing selected, default animations.
-	            animations = [_react2.default.createElement(_aframeReact.Animation, { key: idx + '_enter', begin: 'mouseenter',
-	              easing: 'ease-in', attribute: 'geometry.radius',
-	              dur: '200', from: '0.5', to: '1'
-	            }), _react2.default.createElement(_aframeReact.Animation, { key: idx + '_leave', begin: 'mouseleave',
-	              easing: 'ease-in', attribute: 'geometry.radius',
-	              dur: '200', from: '1', to: '0.5'
-	            })];
-	          }
 
-	          return _react2.default.createElement(
-	            _VideoSphere2.default,
-	            { key: set.name,
-	              src: '#city',
-	              radius: '0.5',
-	              position: set.position,
-	              onClick: _this2.setupClickCallback(idx) },
-	            animations
-	          );
-	        }),
-	        sky
+	            return _react2.default.createElement(
+	              _aframeReact.Entity,
+	              { key: set.name,
+	                geometry: { primitive: 'sphere', radius: 0.5 },
+	                material: { color: set.colour, shader: 'flat' },
+	                position: set.position, scale: '1 1 -1',
+	                onClick: _this2.setupClickCallback(idx) },
+	              animations
+	            );
+	          }),
+	          sky
+	        )
 	      );
 	    }
 	  }]);
@@ -94689,7 +94659,7 @@
 	exports.default = MusicSets;
 
 /***/ },
-/* 525 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94769,6 +94739,75 @@
 	}(_react2.default.Component);
 
 	exports.default = AImage;
+
+/***/ },
+/* 524 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    _aframeReact.Entity,
+	    null,
+	    _react2.default.createElement(_aframeReact.Entity, _extends({ id: 'camera', camera: '', 'look-controls': '', 'wasd-controls': '' }, props))
+	  );
+	};
+
+/***/ },
+/* 525 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  var geometry = {
+	    primitive: 'ring',
+	    radiusInner: 0.01,
+	    radiusOuter: 0.016
+	  };
+	  var material = {
+	    color: props.color,
+	    shader: 'flat',
+	    opacity: props.opacity || 0.9,
+	    transparent: true
+	  };
+	  return _react2.default.createElement(
+	    _aframeReact.Entity,
+	    { cursor: props.cursor, geometry: geometry, material: material, position: '0 0 -1' },
+	    _react2.default.createElement(_aframeReact.Animation, { attribute: 'scale', begin: 'click', dur: '150', fill: 'backwards',
+	      to: '0 0 0' }),
+	    _react2.default.createElement(_aframeReact.Animation, { attribute: 'scale', begin: 'fusing', easing: 'ease-in',
+	      fill: 'forwards', from: '1 1 1', to: '0.1 0.1 0.1',
+	      dur: '1500' })
+	  );
+	};
 
 /***/ },
 /* 526 */
@@ -94877,6 +94916,55 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Assets = function (_React$Component) {
+	  _inherits(Assets, _React$Component);
+
+	  function Assets() {
+	    _classCallCheck(this, Assets);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Assets).apply(this, arguments));
+	  }
+
+	  _createClass(Assets, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'a-assets',
+	        null,
+	        this.props.children
+	      );
+	    }
+	  }]);
+
+	  return Assets;
+	}(_react2.default.Component);
+
+	exports.default = Assets;
+
+/***/ },
+/* 528 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _aframeReact = __webpack_require__(301);
 
 	var _reactRouter = __webpack_require__(460);
@@ -94923,7 +95011,7 @@
 	exports.default = MusicSet;
 
 /***/ },
-/* 528 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -94933,6 +95021,543 @@
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(2);
+
+	__webpack_require__(5);
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(458);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	__webpack_require__(530);
+
+	var _Camera = __webpack_require__(531);
+
+	var _Camera2 = _interopRequireDefault(_Camera);
+
+	var _Cursor = __webpack_require__(532);
+
+	var _Cursor2 = _interopRequireDefault(_Cursor);
+
+	var _Sky = __webpack_require__(534);
+
+	var _Sky2 = _interopRequireDefault(_Sky);
+
+	var _Floor = __webpack_require__(535);
+
+	var _Floor2 = _interopRequireDefault(_Floor);
+
+	var _RainingObjects = __webpack_require__(536);
+
+	var _RainingObjects2 = _interopRequireDefault(_RainingObjects);
+
+	var _Audio = __webpack_require__(537);
+
+	var _Audio2 = _interopRequireDefault(_Audio);
+
+	__webpack_require__(538);
+
+	__webpack_require__(533);
+
+	__webpack_require__(539);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	//import $ from 'jquery';
+
+	var BoilerplateScene = function (_React$Component) {
+	  _inherits(BoilerplateScene, _React$Component);
+
+	  function BoilerplateScene(props) {
+	    _classCallCheck(this, BoilerplateScene);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BoilerplateScene).call(this, props));
+
+	    var heights = Array.apply(null, Array(BoilerplateScene.frequencySize)).map(function (x, i) {
+	      return 0.5;
+	    });
+	    _this.state = {
+	      heights: heights,
+	      position: {
+	        x: 0,
+	        y: 0,
+	        z: 0
+	      },
+	      song: 'http://res.cloudinary.com/gavinching/video/upload/v1462807480/alesso_eajztb.mp3'
+	    };
+	    return _this;
+	  }
+
+	  _createClass(BoilerplateScene, [{
+	    key: 'getMixins',
+	    value: function getMixins() {
+	      return _react2.default.createElement(
+	        _aframeReact.Entity,
+	        null,
+	        _react2.default.createElement('a-mixin', { id: 'visualizer', geometry: 'primitive: box; depth: 1; height: 40; width: 5',
+	          material: 'color: red; opacity: 0.6;' }),
+	        _react2.default.createElement('a-mixin', { id: 'visualizer-ring', geometry: 'primitive: circle; radius:0.5',
+	          material: 'color: red; opacity: 0.6;' }),
+	        _react2.default.createElement('a-mixin', { id: 'snow', geometry: 'primitive: box; depth: 0.02;height: 0.04; width: 0.04', material: 'color: #DDD; opacity: 0.4; shader: flat' }),
+	        _react2.default.createElement('a-mixin', { id: 'blue-speck', geometry: 'primitive: box; depth: 0.03;height: 0.05; width: 0.05', material: 'color: #2C4659; opacity: 0.2; shader: flat' }),
+	        _react2.default.createElement('a-mixin', { id: 'pulse', geometry: 'primitive: circle; radius: 1;', material: 'color: white; opacity: 0.8; shader:flat;', position: '0 0 0' }),
+	        _react2.default.createElement('a-mixin', { id: 'waveform', geometry: 'primitive: box; height: 0.2; depth: 0.05; width: 0.05;', material: 'color: white; opacity: 0.8; shader:flat;', position: '0 0 0' }),
+	        _react2.default.createElement('a-mixin', { id: 'snake', geometry: 'primitive: box; height: 0.2; depth: 5; width: 0.2;', material: 'color: #72CCBC; shader: flat;', rotation: '0 0 90' })
+	      );
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var mixins = this.getMixins();
+	      return _react2.default.createElement(
+	        _aframeReact.Scene,
+	        { stats: true, canvas: 'canvas: #mycanvas; height: 50; width:50;' },
+	        _react2.default.createElement(
+	          'a-assets',
+	          null,
+	          mixins
+	        ),
+	        _react2.default.createElement(_Audio2.default, { audioSrc: this.state.song }),
+	        _react2.default.createElement(
+	          _Camera2.default,
+	          { position: [0, 10, 0] },
+	          _react2.default.createElement(_Cursor2.default, null)
+	        ),
+	        _react2.default.createElement(_Sky2.default, { color: '#1D2327' }),
+	        _react2.default.createElement(
+	          _aframeReact.Entity,
+	          null,
+	          _react2.default.createElement(_RainingObjects2.default, { animationDirection: 'alternate', mixin: 'snow', spread: '75', numElements: '1000' }),
+	          _react2.default.createElement(_RainingObjects2.default, { animationDirection: 'alternate', mixin: 'blue-speck', numElements: '250' }),
+	          _react2.default.createElement(Pulse, { position: [0, 14, 0], heights: this.state.heights }),
+	          _react2.default.createElement(Waveform, { heights: this.state.heights }),
+	          _react2.default.createElement(Pulse, { position: [0, 5, 0], heights: this.state.heights })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return BoilerplateScene;
+	}(_react2.default.Component);
+
+	BoilerplateScene.frequencySize = 64;
+
+	var SnakeLines = function (_React$Component2) {
+	  _inherits(SnakeLines, _React$Component2);
+
+	  function SnakeLines(props) {
+	    _classCallCheck(this, SnakeLines);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SnakeLines).call(this, props));
+	  }
+
+	  _createClass(SnakeLines, [{
+	    key: 'getSpread',
+	    value: function getSpread(spread) {
+	      return Math.random() * spread - spread / 2;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var snakes = [];
+	      for (var i = 0; i < this.props.numBlocks; i++) {
+	        snakes.push(_react2.default.createElement(_aframeReact.Entity, { mixin: 'snake', position: [this.getSpread(this.props.spread), this.getSpread(this.props.spread), this.getSpread(this.props.spread)] }));
+	      }
+	      return _react2.default.createElement(
+	        _aframeReact.Entity,
+	        { 'look-at': '[camera]' },
+	        snakes
+	      );
+	    }
+	  }]);
+
+	  return SnakeLines;
+	}(_react2.default.Component);
+
+	SnakeLines.defaultProps = {
+	  numBlocks: 12,
+	  spread: 30
+	};
+
+	var Waveform = function (_React$Component3) {
+	  _inherits(Waveform, _React$Component3);
+
+	  function Waveform(props) {
+	    _classCallCheck(this, Waveform);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Waveform).call(this, props));
+	  }
+
+	  _createClass(Waveform, [{
+	    key: 'render',
+	    value: function render() {
+	      var blocks = [];
+	      for (var i = 0; i < this.props.numBlocks; i++) {
+	        var v = this.props.heights[i] / 16;
+	        var y = v * 1 / 2;
+	        blocks.push(_react2.default.createElement(
+	          _aframeReact.Entity,
+	          null,
+	          _react2.default.createElement(_aframeReact.Entity, { mixin: 'waveform', position: [0, y, 0] })
+	        ));
+	      }
+	      return _react2.default.createElement(
+	        _aframeReact.Entity,
+	        { layout: { type: 'circle', radius: 5 }, position: [0, 3, 0] },
+	        _react2.default.createElement(_aframeReact.Animation, { attribute: 'rotation', to: '0 360 0', dur: '50000', repeat: 'indefinite', direction: 'alternate' }),
+	        blocks
+	      );
+	    }
+	  }]);
+
+	  return Waveform;
+	}(_react2.default.Component);
+
+	Waveform.defaultProps = {
+	  numBlocks: 256
+	};
+
+	var Pulse = function (_React$Component4) {
+	  _inherits(Pulse, _React$Component4);
+
+	  function Pulse(props) {
+	    _classCallCheck(this, Pulse);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Pulse).call(this, props));
+	  }
+
+	  _createClass(Pulse, [{
+	    key: 'render',
+	    value: function render() {
+	      var blocks = [];
+	      for (var i = 0; i < this.props.numBlocks; i++) {
+	        blocks.push(_react2.default.createElement(_aframeReact.Entity, { mixin: 'pulse', geometry: { radius: this.props.heights[i] / 50 }, position: [0, 0, i] }));
+	      }
+	      return _react2.default.createElement(
+	        _aframeReact.Entity,
+	        { position: this.props.position, 'look-at': '[camera]' },
+	        blocks
+	      );
+	    }
+	  }]);
+
+	  return Pulse;
+	}(_react2.default.Component);
+
+	Pulse.defaultProps = {
+	  numBlocks: 4
+	};
+
+	var VisualizerBlock = function (_React$Component5) {
+	  _inherits(VisualizerBlock, _React$Component5);
+
+	  function VisualizerBlock(props) {
+	    _classCallCheck(this, VisualizerBlock);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(VisualizerBlock).call(this, props));
+	  }
+
+	  _createClass(VisualizerBlock, [{
+	    key: 'render',
+	    value: function render() {
+	      var blocks = [];
+	      var multiplier = 16;
+	      var startingX = multiplier * this.props.numBlocks / 2 * -1;
+	      var startingZ = startingX;
+	      for (var i = 0; i < this.props.numBlocks; i++) {
+	        blocks.push(_react2.default.createElement(
+	          _aframeReact.Entity,
+	          null,
+	          _react2.default.createElement(_aframeReact.Entity, { position: [startingX, -0.5, startingZ + i * multiplier], mixin: 'visualizer', geometry: { height: this.props.heights[i] }, material: { color: 'blue' }, 'look-at': '[camera]' }),
+	          _react2.default.createElement(_aframeReact.Entity, { position: [-1 * startingX, -0.5, startingZ + i * multiplier], mixin: 'visualizer', geometry: { height: this.props.heights[i] }, material: { color: 'green' }, 'look-at': '[camera]' }),
+	          _react2.default.createElement(_aframeReact.Entity, { position: [0, -0.5, -250 + i], mixin: 'visualizer-ring', geometry: { "radius": this.props.heights[i + 2] }, 'look-at': '[camera]', material: { color: 'orange' } })
+	        ));
+	      }
+	      return _react2.default.createElement(
+	        _aframeReact.Entity,
+	        null,
+	        blocks
+	      );
+	    }
+	  }]);
+
+	  return VisualizerBlock;
+	}(_react2.default.Component);
+
+	VisualizerBlock.defaultProps = {
+	  numBlocks: 16
+	};
+	exports.default = BoilerplateScene;
+
+	//ReactDOM.render(<BoilerplateScene/>, document.querySelector('.scene-container'));
+
+/***/ },
+/* 530 */
+/***/ function(module, exports) {
+
+	/**
+	 * Layout component for A-Frame.
+	 * Some layouts adapted from http://www.vb-helper.com/tutorial_platonic_solids.html
+	 */
+	AFRAME.registerComponent('layout', {
+	  schema: {
+	    columns: {default: 1, min: 0, if: {type: ['box']}},
+	    margin: {default: 1, min: 0, if: { type: ['box', 'line']}},
+	    radius: {default: 1, min: 0, if: {
+	      type: ['circle', 'cube', 'dodecahedron', 'pyramid']
+	    }},
+	    type: {default: 'line', oneOf: [
+	      'box', 'circle', 'cube', 'dodecahedron', 'line', 'pyramid'
+	    ]}
+	  },
+
+	  /**
+	   * Store initial positions in case need to reset on component removal.
+	   */
+	  init: function () {
+	    var el = this.el;
+	    this.children = el.getChildEntities();
+	    var initialPositions = initialPositions = [];
+
+	    this.children.forEach(function (childEl) {
+	      initialPositions.push(childEl.getComputedAttribute('position'));
+	    });
+
+	    this.childAttachedCallback = this.update.bind(this);
+	    el.addEventListener('child-attached', this.childAttachedCallback);
+	  },
+
+	  /**
+	   * Update child entity positions.
+	   */
+	  update: function (oldData) {
+	    var children = this.children;
+	    var data = this.data;
+	    var el = this.el;
+	    var numChildren = children.length;
+	    var positionFn;
+	    var positions;
+	    var startPosition = el.getComputedAttribute('position');
+
+	    // Calculate different positions based on layout shape.
+	    switch (data.type) {
+	      case 'box': {
+	        positionFn = getBoxPositions;
+	        break;
+	      }
+	      case 'circle': {
+	        positionFn = getCirclePositions;
+	        break;
+	      }
+	      case 'cube': {
+	        positionFn = getCubePositions;
+	        break;
+	      }
+	      case 'dodecahedron': {
+	        positionFn = getDodecahedronPositions;
+	        break;
+	      }
+	      case 'pyramid': {
+	        positionFn = getPyramidPositions;
+	        break;
+	      }
+	      default: {
+	        // Line.
+	        positionFn = getLinePositions;
+	      }
+	    }
+
+	    positions = positionFn(data, numChildren, startPosition);
+	    setPositions(children, positions);
+	  },
+
+	  /**
+	   * Reset positions.
+	   */
+	  remove: function () {
+	    el.removeEventListener('child-attached', this.childAttachedCallback);
+	    setPositions(children, this.initialPositions);
+	  }
+	});
+
+	/**
+	 * Get positions for `box` layout.
+	 */
+	function getBoxPositions (data, numChildren, startPosition) {
+	  var positions = [];
+	  var rows = Math.ceil(numChildren / data.columns);
+
+	  for (var row = 0; row < rows; row++) {
+	    for (var column = 0; column < data.columns; column++) {
+	      positions.push([
+	        column * data.margin,
+	        row * data.margin,
+	        0
+	      ]);
+	    }
+	  }
+
+	  return positions;
+	}
+	module.exports.getBoxPositions = getBoxPositions;
+
+	/**
+	 * Get positions for `circle` layout.
+	 * TODO: arcLength.
+	 */
+	function getCirclePositions (data, numChildren, startPosition) {
+	  var positions = [];
+
+	  for (var i = 0; i < numChildren; i++) {
+	    var rad = i * (2 * Math.PI) / numChildren;
+	    positions.push([
+	      startPosition.x + data.radius * Math.cos(rad),
+	      startPosition.y,
+	      startPosition.z + data.radius * Math.sin(rad)
+	    ]);
+	  }
+	  return positions;
+	}
+	module.exports.getCirclePositions = getCirclePositions;
+
+	/**
+	 * Get positions for `line` layout.
+	 * TODO: 3D margins.
+	 */
+	function getLinePositions (data, numChildren, startPosition) {
+	  data.columns = numChildren;
+	  return getBoxPositions(data, numChildren, startPosition);
+	}
+	module.exports.getLinePositions = getLinePositions;
+
+	/**
+	 * Get positions for `cube` layout.
+	 */
+	function getCubePositions (data, numChildren, startPosition) {
+	  return transform([
+	    [1, 0, 0],
+	    [0, 1, 0],
+	    [0, 0, 1],
+	    [-1, 0, 0],
+	    [0, -1, 0],
+	    [0, 0, -1],
+	  ], startPosition, data.radius / 2);
+	}
+	module.exports.getCubePositions = getCubePositions;
+
+	/**
+	 * Get positions for `dodecahedron` layout.
+	 */
+	function getDodecahedronPositions (data, numChildren, startPosition) {
+	  var PHI = (1 + Math.sqrt(5)) / 2;
+	  var B = 1 / PHI;
+	  var C = 2 - PHI;
+	  var NB = -1 * B;
+	  var NC = -1 * C;
+
+	  return transform([
+	    [-1, C, 0],
+	    [-1, NC, 0],
+	    [0, -1, C],
+	    [0, -1, NC],
+	    [0, 1, C],
+	    [0, 1, NC],
+	    [1, C, 0],
+	    [1, NC, 0],
+	    [B, B, B],
+	    [B, B, NB],
+	    [B, NB, B],
+	    [B, NB, NB],
+	    [C, 0, 1],
+	    [C, 0, -1],
+	    [NB, B, B],
+	    [NB, B, NB],
+	    [NB, NB, B],
+	    [NB, NB, NB],
+	    [NC, 0, 1],
+	    [NC, 0, -1],
+	  ], startPosition, data.radius / 2);
+	}
+	module.exports.getDodecahedronPositions = getDodecahedronPositions;
+
+	/**
+	 * Get positions for `pyramid` layout.
+	 */
+	function getPyramidPositions (data, numChildren, startPosition) {
+	  var SQRT_3 = Math.sqrt(3);
+	  var NEG_SQRT_1_3 = -1 / Math.sqrt(3);
+	  var DBL_SQRT_2_3 = 2 * Math.sqrt(2 / 3);
+
+	  return transform([
+	    [0, 0, SQRT_3 + NEG_SQRT_1_3],
+	    [-1, 0, NEG_SQRT_1_3],
+	    [1, 0, NEG_SQRT_1_3],
+	    [0, DBL_SQRT_2_3, 0]
+	  ], startPosition, data.radius / 2);
+	}
+	module.exports.getPyramidPositions = getPyramidPositions;
+
+	/**
+	 * Multiply all coordinates by a scale factor and add translate.
+	 *
+	 * @params {array} positions - Array of coordinates in array form.
+	 * @returns {array} positions
+	 */
+	function transform (positions, translate, scale) {
+	  translate = [translate.x, translate.y, translate.z];
+	  return positions.map(function (position) {
+	    return position.map(function (point, i) {
+	      return point * scale + translate[i];
+	    });
+	  });
+	};
+
+	/**
+	 * Set position on child entities.
+	 *
+	 * @param {array} els - Child entities to set.
+	 * @param {array} positions - Array of coordinates.
+	 */
+	function setPositions (els, positions) {
+	  els.forEach(function (el, i) {
+	    var position = positions[i];
+	    el.setAttribute('position', {
+	      x: position[0],
+	      y: position[1],
+	      z: position[2]
+	    });
+	  });
+	}
+
+
+/***/ },
+/* 531 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _aframeReact = __webpack_require__(301);
 
 	var _react = __webpack_require__(302);
 
@@ -94946,30 +95571,570 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Assets = function (_React$Component) {
-	  _inherits(Assets, _React$Component);
+	var Camera = function (_React$Component) {
+	  _inherits(Camera, _React$Component);
 
-	  function Assets() {
-	    _classCallCheck(this, Assets);
+	  function Camera(props) {
+	    _classCallCheck(this, Camera);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Assets).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Camera).call(this, props));
 	  }
 
-	  _createClass(Assets, [{
+	  _createClass(Camera, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'a-assets',
+	        _aframeReact.Entity,
 	        null,
-	        this.props.children
+	        _react2.default.createElement(_aframeReact.Entity, _extends({ 'class': 'camera', camera: '', 'look-controls': '', 'wasd-controls': '', position: [0, 0, 5] }, this.props))
+	      );
+	    }
+	  }], [{
+	    key: 'getCameraPosition',
+	    value: function getCameraPosition() {
+	      var elem = document.getElementsByClassName("camera")[0];
+	      var position = elem.getAttribute('position');
+	      return position;
+	    }
+	  }]);
+
+	  return Camera;
+	}(_react2.default.Component);
+
+	;
+
+	exports.default = Camera;
+
+/***/ },
+/* 532 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(533);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  var geometry = {
+	    primitive: 'ring',
+	    radiusInner: 0.01,
+	    radiusOuter: 0.016
+	    // radius: 0.5,
+	    // height: 1
+	  };
+	  var material = {
+	    color: props.color,
+	    shader: 'flat',
+	    opacity: props.opacity || 0.9,
+	    transparent: true
+	  };
+	  var cursor = {};
+	  var raycaster = {
+	    objects: '.lookable',
+	    far: 1000
+	  };
+	  return _react2.default.createElement(
+	    _aframeReact.Entity,
+	    { 'raycaster-helper': true, raycaster: raycaster, cursor: cursor, geometry: geometry, material: material, position: '0 0 -1' },
+	    _react2.default.createElement(_aframeReact.Animation, { begin: 'click', easing: 'ease-in', attribute: 'scale',
+	      fill: 'backwards', from: '0.1 0.1 0.1', to: '1 1 1' }),
+	    _react2.default.createElement(_aframeReact.Animation, { begin: 'fusing', easing: 'ease-in', attribute: 'scale',
+	      fill: 'forwards', from: '3 3 3', to: '0.1 0.1 0.1' })
+	  );
+	};
+
+/***/ },
+/* 533 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/* global AFRAME, THREE */
+	var originVector = new THREE.Vector3(0, 0, 0);
+
+	/**
+	 * Draw raycaster ray.
+	 */
+	AFRAME.registerComponent('raycaster-helper', {
+	  dependencies: ['material', 'raycaster'],
+
+	  init: function init() {
+	    var el = this.el;
+	    var geometry = new THREE.Geometry();
+	    var material = new THREE.LineBasicMaterial({
+	      color: el.getComputedAttribute('material').color
+	    });
+	    var raycaster = el.components.raycaster.raycaster;
+	    var length = raycaster.far === Infinity ? 1000 : raycaster.far;
+
+	    geometry.vertices.push(originVector, raycaster.ray.direction.clone().multiplyScalar(length));
+	    material.opacity = el.getComputedAttribute('material').opacity;
+	    material.transparent = true;
+	    el.setObject3D('line', new THREE.Line(geometry, material));
+	  }
+	});
+
+/***/ },
+/* 534 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Sky = function (_React$Component) {
+	  _inherits(Sky, _React$Component);
+
+	  // TODO: Set default properties
+
+	  function Sky(props) {
+	    _classCallCheck(this, Sky);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Sky).call(this, props));
+	  }
+
+	  _createClass(Sky, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_aframeReact.Entity, { geometry: { primitive: 'box', height: 5000, width: 5000, depth: 5000, radius: 5000 },
+	        material: { color: this.props.color, shader: 'flat' },
+	        scale: '1 1 -1' });
+	    }
+	  }]);
+
+	  return Sky;
+	}(_react2.default.Component);
+
+	;
+	exports.default = Sky;
+
+/***/ },
+/* 535 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Floor = function (_React$Component) {
+	  _inherits(Floor, _React$Component);
+
+	  function Floor() {
+	    _classCallCheck(this, Floor);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Floor).apply(this, arguments));
+	  }
+
+	  _createClass(Floor, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_aframeReact.Entity, { geometry: { primitive: 'plane', width: 200, height: 200 }, rotation: [-90, 0, 0], position: [-1, -1, -1], material: { color: 'white', shader: 'flat' } });
+	    }
+	  }]);
+
+	  return Floor;
+	}(_react2.default.Component);
+
+	;
+
+	exports.default = Floor;
+
+/***/ },
+/* 536 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var RainingObjects = function (_React$Component) {
+	  _inherits(RainingObjects, _React$Component);
+
+	  function RainingObjects(props) {
+	    _classCallCheck(this, RainingObjects);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(RainingObjects).call(this, props));
+
+	    _this.state = {};
+
+	    return _this;
+	  }
+
+	  _createClass(RainingObjects, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _aframeReact.Entity,
+	        { 'entity-generator': { numElements: this.props.numElements, mixin: this.props.mixin, spread: this.props.spread }, position: '0 10 0' },
+	        _react2.default.createElement(_aframeReact.Animation, { attribute: 'position', dur: '16000', easing: 'linear', repeat: 'indefinite', to: '0 0 0', direction: this.props.animationDirection })
 	      );
 	    }
 	  }]);
 
-	  return Assets;
+	  return RainingObjects;
 	}(_react2.default.Component);
 
-	exports.default = Assets;
+	RainingObjects.defaultProps = {
+	  animationDirection: { default: 'normal' },
+	  mixin: { default: '' },
+	  numElements: 2000,
+	  spread: 50
+	};
+	;
+
+	exports.default = RainingObjects;
+
+/***/ },
+/* 537 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _aframeReact = __webpack_require__(301);
+
+	var _react = __webpack_require__(302);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Audio = function (_React$Component) {
+	  _inherits(Audio, _React$Component);
+
+	  function Audio(props) {
+	    _classCallCheck(this, Audio);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Audio).call(this, props));
+
+	    _this.state = {
+	      frequencyData: [],
+	      analyzer: ''
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Audio, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.setupAudioElement();
+
+	      var that = this;
+	      setInterval(function () {
+	        that.updateAudio();
+	      }, 100);
+	    }
+	  }, {
+	    key: 'setupAudioVisualizers',
+	    value: function setupAudioVisualizers(audioElement) {
+	      var ctx = new AudioContext();
+
+	      var src = ctx.createMediaElementSource(audioElement);
+	      var analyzer = ctx.createAnalyser();
+
+	      src.connect(analyzer);
+	      analyzer.connect(ctx.destination);
+
+	      analyzer.fftSize = this.props.fastFourierTransform;
+
+	      // FrequencyBinCount is unsigned long value HALF That of the FFT size
+	      this.state.frequencyData = new Uint8Array(analyzer.frequencyBinCount);
+	      analyzer.getByteFrequencyData(this.state.frequencyData);
+	      this.state.analyzer = analyzer;
+	    }
+	  }, {
+	    key: 'setupAudioElement',
+	    value: function setupAudioElement() {
+	      var audioElement = document.createElement('audio');
+	      audioElement.setAttribute('src', this.props.audioSrc);
+	      audioElement.setAttribute('loop', true);
+	      audioElement.setAttribute('autoplay', true);
+	      audioElement.crossOrigin = "anonymous";
+
+	      var element = document.createElement('div');
+	      element.setAttribute('class', 'audio-player');
+	      element.appendChild(audioElement);
+	      document.getElementsByClassName('audio')[0].appendChild(element);
+	      this.setupAudioVisualizers(audioElement);
+	    }
+	  }, {
+	    key: 'updateAudio',
+	    value: function updateAudio() {
+	      // Get the new frequency data
+	      var frequencyData = this.state.frequencyData;
+	      this.state.analyzer.getByteFrequencyData(frequencyData);
+	      var y = [];
+
+	      // TODO: maybe change this to just be based off frequencySize
+	      for (var i in frequencyData) {
+	        y[i] = frequencyData[i];
+	      }
+	      // TODO/FIXME: This is so dirty
+	      this._reactInternalInstance._currentElement._owner._instance.setState({ heights: y });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_aframeReact.Entity, { 'class': 'audio' });
+	    }
+	  }]);
+
+	  return Audio;
+	}(_react2.default.Component);
+
+	Audio.defaultProps = {
+	  fastFourierTransform: 2048,
+	  audioSrc: { default: '' },
+	  heights: ''
+	};
+	;
+
+	exports.default = Audio;
+
+/***/ },
+/* 538 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	AFRAME.registerComponent('collider', {
+	      init: function init() {
+
+	            var el = this.el;
+	            el.addEventListener('click', function (e) {});
+
+	            el.addEventListener('raycaster-intersected', function (evt) {
+	                  var raycasterEl = evt.detail.el;
+	                  el.setAttribute('visible', false);
+	            });
+
+	            el.addEventListener('raycaster-intersected-cleared', function (evt) {
+	                  el.setAttribute('visible', true);
+	            });
+
+	            el.addEventListener('raycaster-intersection', function (e) {
+	                  console.log(e);
+	            });
+	      }
+	});
+
+/***/ },
+/* 539 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/* global AFRAME */
+
+	/**
+	 * Create ton of entities at random positions.
+	 * Update raycasters to realize the boxes.
+	 */
+	AFRAME.registerComponent('entity-generator', {
+	  schema: {
+	    mixin: { default: '' },
+	    numElements: { default: 2000 },
+	    raycasterEls: { default: '[mixin~="raycaster"]', type: 'selectorAll' },
+	    spread: { default: 50 },
+	    minExclusion: { default: 0 },
+	    maxExclusion: { default: 25 }
+	  },
+
+	  // TODO: make the position of the elements depending on starting position
+	  init: function init() {
+	    var data = this.data;
+	    // Create entities with supplied mixin.
+	    for (var i = 0; i < data.numElements; i++) {
+	      var entity = document.createElement('a-entity');
+
+	      entity.setAttribute('mixin', data.mixin);
+	      // Set random position with supplied spread.
+	      entity.setAttribute('position', {
+	        x: getSpread(data.spread),
+	        y: getSpread(data.spread),
+	        z: getSpread(data.spread)
+	      });
+	      this.el.appendChild(entity);
+	    }
+	    // Refresh raycasters.
+	    if (!data.raycasterEls) {
+	      return;
+	    }
+	    for (i = 0; i < data.raycasterEls.length; i++) {
+	      data.raycasterEls[i].components.raycaster.refreshObjects();
+	    }
+	  }
+	});
+
+	AFRAME.registerComponent('entity-generator-stars', {
+	  schema: {
+	    mixin: { default: '' },
+	    num: { default: 2000 },
+	    raycasterEls: { default: '[mixin~="raycaster"]', type: 'selectorAll' },
+	    spread: { default: 100 },
+	    minExclusion: { default: 0 },
+	    maxExclusion: { default: 50 }
+	  },
+
+	  // TODO: make the position of the elements depending on starting position
+	  init: function init() {
+	    var data = this.data;
+
+	    // Create entities with supplied mixin.
+	    for (var i = 0; i < data.num; i++) {
+	      var entity = document.createElement('a-entity');
+
+	      entity.setAttribute('mixin', data.mixin);
+	      // Set random position with supplied spread.
+	      entity.setAttribute('position', {
+	        x: getSpread(data.spread),
+	        y: getSpecificSpread(data.spread, data.minExclusion, data.maxExclusion),
+	        z: getSpread(data.spread)
+	      });
+	      this.el.appendChild(entity);
+	    }
+	    // Refresh raycasters.
+	    if (!data.raycasterEls) {
+	      return;
+	    }
+	    for (i = 0; i < data.raycasterEls.length; i++) {
+	      data.raycasterEls[i].components.raycaster.refreshObjects();
+	    }
+	  }
+	});
+
+	AFRAME.registerComponent('entity-generator-trees', {
+	  schema: {
+	    mixin: { default: '' },
+	    num: { default: 160 },
+	    raycasterEls: { default: '[mixin~="raycaster"]', type: 'selectorAll' },
+	    spread: { default: 60 },
+	    minExclusion: { default: -10 },
+	    maxExclusion: { default: 10 }
+	  },
+
+	  // TODO: make the position of the elements depending on starting position
+	  init: function init() {
+	    var data = this.data;
+
+	    // Create entities with supplied mixin.
+	    for (var i = 0; i < data.num; i++) {
+	      var base = document.createElement('a-entity');
+	      var leaf = document.createElement('a-entity');
+	      base.setAttribute('mixin', data.mixinTree);
+	      leaf.setAttribute('mixin', data.mixinLeaf);
+
+	      // Set random position with supplied spread.
+	      base.setAttribute('position', {
+	        x: getSpecificSpread(data.spread, data.minExclusion, data.maxExclusion),
+	        y: 0,
+	        z: getSpecificSpread(data.spread, 0, 0)
+	      });
+
+	      leaf.setAttribute('position', {
+	        x: 0,
+	        y: 1,
+	        z: 0
+	      });
+	      base.appendChild(leaf);
+	      this.el.appendChild(base);
+	    }
+	    // Refresh raycasters.
+	    if (!data.raycasterEls) {
+	      return;
+	    }
+	    for (i = 0; i < data.raycasterEls.length; i++) {
+	      data.raycasterEls[i].components.raycaster.refreshObjects();
+	    }
+	  }
+	});
+	function getSpecificSpread(spread, minExclusion, maxExclusion) {
+	  var value = 0;
+	  value = Math.random() * spread - spread / 2;
+	  while (value < maxExclusion && value > minExclusion) {
+	    value = Math.random() * spread - spread / 2;
+	  }return value;
+	}
+
+	function getSpread(spread) {
+	  return Math.random() * spread - spread / 2;
+	}
 
 /***/ }
 /******/ ]);
