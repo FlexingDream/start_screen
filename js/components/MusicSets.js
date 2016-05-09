@@ -129,7 +129,7 @@ class MusicSets extends React.Component {
   }
 
   linkToSets = () => {
-    browserHistory.push('musicset/kpop');
+    browserHistory.push('derp');
   }
 
   render(){
