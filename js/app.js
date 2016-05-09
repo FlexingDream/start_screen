@@ -61,7 +61,7 @@ ReactDOM.render((
     <Router history={browserHistory}>
       <Route path='start_screen/' component={MainAppScene}>
         <IndexRoute component={MusicSets}/>
-        <Route path='musicset/:setId' component={PuaMainScene} />
+        <Route path='/start_screen/musicset/:setId' component={PuaMainScene} />
         <Route path='*' component={NoMatch} />
       </Route>
     </Router>
