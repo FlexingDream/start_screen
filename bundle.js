@@ -173,7 +173,7 @@
 	    _reactRouter.Route,
 	    { path: 'start_screen/', component: MainAppScene },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _MusicSets2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'derp', component: _PuaMainScene2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'start_screen/derp', component: _PuaMainScene2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '*', component: NoMatch })
 	  )
 	), document.querySelector('.scene-container'));
