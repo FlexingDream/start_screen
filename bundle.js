@@ -173,7 +173,7 @@
 	    _reactRouter.Route,
 	    { path: 'start_screen/', component: MainAppScene },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _MusicSets2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'start_screen/derp', component: _PuaMainScene2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'derp', component: _PuaMainScene2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '*', component: NoMatch })
 	  )
 	), document.querySelector('.scene-container'));
@@ -94597,8 +94597,6 @@
 	          _react2.default.createElement('img', { id: 'start', src: 'img/start.jpg' }),
 	          _react2.default.createElement('img', { id: 'instr', src: 'img/instr.png' }),
 	          _react2.default.createElement('video', { id: 'city', src: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
-	            autoplay: true, loop: true, 'webkit-playsinline': true }),
-	          _react2.default.createElement('video', { id: 'wow', src: 'img/gavin-v2-low.mp4',
 	            autoplay: true, loop: true, 'webkit-playsinline': true })
 	        ),
 	        _react2.default.createElement(
