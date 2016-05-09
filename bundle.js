@@ -174,7 +174,7 @@
 	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(
 	    _reactRouter.Route,
-	    { path: '/', component: MainAppScene },
+	    { path: 'start_screen/', component: MainAppScene },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _MusicSets2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'music/:setId', component: _MusicSet2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '*', component: NoMatch })
