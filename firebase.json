@@ -1,0 +1,10 @@
+{
+  "firebase": "flexingpua",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**",
+    "src"
+  ]
+}
