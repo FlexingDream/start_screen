@@ -63,7 +63,7 @@ class BoilerplateScene extends React.Component {
         <Entity>
           <RainingObjects animationDirection='alternate' mixin='snow' spread="75" numElements="1000"/>
           <RainingObjects animationDirection='alternate' mixin='blue-speck' numElements="250"/>
-          <Pulse position={[0,12,0]} heights={this.state.heights}/>
+          <Pulse position={[0,14,0]} heights={this.state.heights}/>
           <Waveform heights={this.state.heights}/>
           <Pulse position={[0,5,0]} heights={this.state.heights}/>
 
