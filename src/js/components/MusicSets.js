@@ -154,8 +154,6 @@ class MusicSets extends React.Component {
           <img id="instr" src="img/instr.png"/>
           <video id="city" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
               autoplay loop webkit-playsinline/>
-          <video id="wow" src="img/gavin-v2-low.mp4"
-              autoplay loop webkit-playsinline/>
         </Assets>
 
         <Entity>
