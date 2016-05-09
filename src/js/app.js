@@ -59,7 +59,7 @@ class NoMatch extends React.Component {
 
 ReactDOM.render((
     <Router history={browserHistory}>
-      <Route path='/' component={MainAppScene}>
+      <Route path='start_screen/' component={MainAppScene}>
         <IndexRoute component={MusicSets}/>
         <Route path='musicset/:setId' component={PuaMainScene} />
         <Route path='*' component={NoMatch} />
