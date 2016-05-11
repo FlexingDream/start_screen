@@ -1,30 +1,26 @@
 import 'aframe';
-import 'aframe-layout-component';
-import './aframe_components/Collider';
-import './aframe_components/RayCaster';
-import './aframe_components/entity-generator';
+import 'babel-polyfill';
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Perf from 'react-addons-perf';
+import 'aframe-layout-component';
 import Camera from './components/Camera';
 import Cursor from './components/Cursor';
 import Sky from './components/Sky';
 import Floor from './components/Floor';
 import RainingObjects from './components/RainingObjects';
 import Audio from './components/Audio';
-import 'babel-polyfill';
-import $ from 'jquery';
-import _ from 'underscore';
+import './aframe_components/Collider';
+import './aframe_components/RayCaster';
+import './aframe_components/entity-generator';
+//import $ from 'jquery';
 
 class BoilerplateScene extends React.Component {
-  static defaultProps = {
-    frequencySize : 128,
-    refreshRate: 100
-  };
+  static frequencySize = 64;
+
   constructor(props) {
     super(props);
-    var heights = Array.apply(null,Array(this.props.frequencySize)).map(function(x,i){return 0});
+    var heights = Array.apply(null,Array(BoilerplateScene.frequencySize)).map(function(x,i){return 0.5});
     this.state = {
       heights: heights,
       position: {
@@ -32,7 +28,7 @@ class BoilerplateScene extends React.Component {
         y: 0,
         z: 0,
       },
-      song: 'https://res.cloudinary.com/gavinching/video/upload/v1462807480/alesso_eajztb.mp3'
+      song: 'http://res.cloudinary.com/gavinching/video/upload/v1462807480/alesso_eajztb.mp3'
     }
   }
 
@@ -45,7 +41,7 @@ class BoilerplateScene extends React.Component {
                                  material="color: red; opacity: 0.6;"></a-mixin>
         <a-mixin id="snow" geometry="primitive: box; depth: 0.02;height: 0.04; width: 0.04" material="color: #DDD; opacity: 0.4; shader: flat"></a-mixin>
         <a-mixin id="blue-speck" geometry="primitive: box; depth: 0.03;height: 0.05; width: 0.05" material="color: #2C4659; opacity: 0.2; shader: flat"></a-mixin>
-        <a-mixin id="pulse" geometry="primitive: circle;" material="color: white; opacity: 0.8; shader:flat;" position="0 0 0" ></a-mixin>
+        <a-mixin id="pulse" geometry="primitive: circle; radius: 1;" material="color: white; opacity: 0.8; shader:flat;" position="0 0 0" ></a-mixin>
         <a-mixin id="waveform" geometry="primitive: box; height: 0.2; depth: 0.05; width: 0.05;" material="color: white; opacity: 0.8; shader:flat;" position="0 0 0" ></a-mixin>
         <a-mixin id="snake" geometry="primitive: box; height: 0.2; depth: 5; width: 0.2;" material="color: #72CCBC; shader: flat;" rotation="0 0 90"></a-mixin>
       </Entity>
@@ -55,24 +51,25 @@ class BoilerplateScene extends React.Component {
   render () {
     var mixins = this.getMixins();
     return (
-      <Scene stats>
+      <Scene stats canvas="canvas: #mycanvas; height: 50; width:50;">
         <a-assets>
           {mixins}
         </a-assets>
-        <Audio  audioSrc={this.state.song} frequencySize={this.props.frequencySize} refreshRate={this.props.refreshRate}/>
+        <Audio  audioSrc={this.state.song}/>
         <Camera position={[0,10,0]}>
           <Cursor />
         </Camera>
         <Sky color='#1D2327'/>
-        <Waveform heights={this.state.heights}/>
-        <Pulse heights={this.state.heights}/>
-        <RainingObjects animationDirection='alternate' mixin='snow' spread="25" numElements="250"/>
+        <Entity>
+          <RainingObjects animationDirection='alternate' mixin='snow' spread="75" numElements="1000"/>
+          <RainingObjects animationDirection='alternate' mixin='blue-speck' numElements="250"/>
+          <Pulse position={[0,14,0]} heights={this.state.heights}/>
+          <Waveform heights={this.state.heights}/>
+          <Pulse position={[0,5,0]} heights={this.state.heights}/>
+
+        </Entity>
       </Scene>
     );
-
-    //           <RainingObjects animationDirection='alternate' mixin='snow' spread="25" numElements="250"/>
-          // <Pulse heights={this.state.heights}/>
-          // <Waveform heights={this.state.heights}/>
   }
 }
 
@@ -105,35 +102,28 @@ class SnakeLines extends React.Component{
 
 class Waveform extends React.Component{
   static defaultProps = {
-    numBlocks: 64,
-    radius: 8
+    numBlocks: 256
   };
 
   constructor(props){
     super(props);
   }
-  shouldComponentUpdate(nextProps,nextState){
-    return !_.isEqual(nextProps.heights,this.props.heights);
-  }
+
   render(){
-    var elements = [];
-    var template = React.createElement(Entity, {
-      mixin: "waveform",
-    },null);
-    var radius = this.props.radius;
+    var blocks = [];
     for (var i = 0;i < this.props.numBlocks; i++){
-      var y = this.props.heights[i]/32;
-      var x,z,rad;
-      rad = i * (2 * Math.PI)/ this.props.numBlocks;
-      x = radius * Math.cos(rad);
-      z = radius * Math.sin(rad);
-      var newElement = React.cloneElement(template, {position: [x,y,z]},null);
-      elements.push(newElement);
+      var v = this.props.heights[i]/16;
+      var y = v * 1/2;
+      blocks.push(
+        <Entity>
+          <Entity mixin="waveform" position={[0,y,0]}/>
+        </Entity>
+      );
     }
     return(
-      <Entity>
+      <Entity layout={{type: 'circle', radius: 5}} position={[0, 3, 0]} >
         <Animation attribute="rotation" to="0 360 0" dur="50000" repeat="indefinite" direction="alternate"/>
-        {elements}
+        {blocks}
       </Entity>
     );
   }
@@ -147,24 +137,46 @@ class Pulse extends React.Component{
   constructor(props){
     super(props);
   }
-  shouldComponentUpdate(nextProps,nextState){
-    return !_.isEqual(nextProps.heights,this.props.heights);
-  }
+
   render(){
-    var elements = [];
-    var template = React.createElement(Entity, {
-      mixin: "pulse",
-    },null);
+    var blocks = [];
     for (var i = 0;i < this.props.numBlocks; i++){
-      var newElement = React.cloneElement(template, {position: [0,0,i], geometry: {radius: this.props.heights[i]/50}},null);
-      elements.push(newElement);
+      blocks.push(
+        <Entity mixin="pulse" geometry={{radius:this.props.heights[i]/50 }} position={[0,0,i]} />
+      );
     }
-    return(<Entity cursor-listener class="lookable" look-at='[camera]'>{elements}</Entity>);
+    return(<Entity position={this.props.position} look-at='[camera]'>{blocks}</Entity>);
   }
 
 }
 
-//window.Perf = Perf;
-//window.$ = $;
-//ReactDOM.render(<BoilerplateScene/>, document.querySelector('.scene-container'));
+class VisualizerBlock extends React.Component{
+  static defaultProps = {
+    numBlocks: 16
+  };
+
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    var blocks = [];
+    var multiplier = 16;
+    var startingX = multiplier * this.props.numBlocks/2 * -1;
+    var startingZ = startingX;
+    for (var i = 0;i < this.props.numBlocks; i++){
+      blocks.push(
+      <Entity>
+        <Entity position={[startingX,-0.5,(startingZ+i*multiplier)]} mixin="visualizer" geometry={{height:this.props.heights[i] }} material={{color:'blue'}}  look-at="[camera]" />
+        <Entity position={[-1*startingX,-0.5,(startingZ+i*multiplier)]} mixin="visualizer" geometry={{height:this.props.heights[i] }} material={{color:'green'}}  look-at="[camera]" />
+        <Entity position={[0,-0.5,-250+i]} mixin="visualizer-ring" geometry={{"radius":this.props.heights[i+2] }} look-at="[camera]" material={{color: 'orange'}}></Entity>
+      </Entity>
+      );
+    }
+    return(<Entity>{blocks}</Entity>);
+  }
+}
+
 export default BoilerplateScene;
+
+//ReactDOM.render(<BoilerplateScene/>, document.querySelector('.scene-container'));

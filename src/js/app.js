@@ -3,6 +3,8 @@ import 'babel-polyfill';
 import {Animation, Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Perf from 'react-addons-perf';
+import $ from 'jquery';
 import { IndexRoute, Router, Route, Link, browserHistory } from 'react-router';
 
 import Sky from './components/Sky';
@@ -55,11 +57,12 @@ class NoMatch extends React.Component {
 }
 
 
-
+window.Perf = Perf;
+window.$ = $;
 
 ReactDOM.render((
     <Router history={browserHistory}>
-      <Route path='/' component={MainAppScene}>
+      <Route path='/' component={PuaMainScene}>
         <IndexRoute component={MusicSets}/>
         <Route path='derp' component={PuaMainScene} />
         <Route path='*' component={NoMatch} />
