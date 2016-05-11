@@ -1,10 +1,9 @@
 {
   "firebase": "flexingpua",
-  "public": ".",
+  "public": "gh-pages",
   "ignore": [
     "firebase.json",
     "**/.*",
-    "**/node_modules/**",
-    "src"
+    "**/node_modules/**"
   ]
 }

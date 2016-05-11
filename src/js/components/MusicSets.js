@@ -155,6 +155,7 @@ class MusicSets extends React.Component {
         </Camera>
 
         <Assets>
+            <img id="instr" src="img/instr.png"/>
         </Assets>
 
         <Entity>
