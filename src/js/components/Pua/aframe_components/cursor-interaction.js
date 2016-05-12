@@ -23,6 +23,9 @@ AFRAME.registerComponent('cursor-interaction', {
 
    document.addEventListener('touchstart',function start(e){
       console.log("PLEASE BE HERE");
+      if (node === undefined){
+        return;
+      }
       document.removeEventListener('touchstart',start,false);
       var node = $(".audio-player").data("audio-node");
       console.log(node);

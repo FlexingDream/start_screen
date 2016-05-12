@@ -67,6 +67,13 @@ class Audio extends React.Component{
         that.state.frequencyData = new Uint8Array(analyzer.frequencyBinCount);
         analyzer.getByteFrequencyData(that.state.frequencyData);
         that.state.analyzer = analyzer;
+
+
+        var animationLoadIn = document.createElement('a-animation');
+        animationLoadIn.setAttribute('attribute','visible');
+        animationLoadIn.setAttribute('to',true);
+        document.getElementsByTagName('a-image')[0].appendChild(animationLoadIn);
+        document.getElementsByTagName('a-image')[0].setAttribute('visible',true);
       },
 
       function(e){"Error with decoding audio data" + e.err});

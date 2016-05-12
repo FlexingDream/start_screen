@@ -32,7 +32,7 @@ class BoilerplateScene extends React.Component {
         y: 0,
         z: 0,
       },
-      song: 'https://res.cloudinary.com/gavinching/video/upload/v1462807480/alesso_eajztb.mp3'
+      song: 'https://cdn.rawgit.com/FlexingDream/aframe_demo/master/src/audio/alesso.mp3'
     }
   }
 
@@ -57,6 +57,7 @@ class BoilerplateScene extends React.Component {
     return (
       <Scene stats>
         <a-assets>
+          <img id="loading" src="img/loading.jpg"/>
           {mixins}
         </a-assets>
         <Audio  audioSrc={this.state.song} frequencySize={this.props.frequencySize} refreshRate={this.props.refreshRate}/>
@@ -64,6 +65,7 @@ class BoilerplateScene extends React.Component {
           <Cursor />
         </Camera>
         <Sky color='#1D2327'/>
+        <a-image src="#loading" position="0 10 -5" visible='false'></a-image>
         <Waveform heights={this.state.heights}/>
         <Pulse heights={this.state.heights}/>
         <RainingObjects animationDirection='alternate' mixin='snow' spread="25" numElements="250"/>
