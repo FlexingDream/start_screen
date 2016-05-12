@@ -59,7 +59,7 @@ class NoMatch extends React.Component {
 
 window.Perf = Perf;
 window.$ = $;
-
+console.log("WOW");
 ReactDOM.render((
     <Router history={browserHistory}>
       <Route path='/' component={PuaMainScene}>

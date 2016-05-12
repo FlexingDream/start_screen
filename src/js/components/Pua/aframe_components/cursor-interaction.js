@@ -11,7 +11,7 @@ AFRAME.registerComponent('cursor-interaction', {
       console.log(evt);
 
       // if (!data.startPlay){
-        // document.getElementsByTagName('audio')[0].play(); 
+        // document.getElementsByTagName('audio')[0].play();
         var node = $(".audio-player").data("audio-node");
 
         if (node){
@@ -21,14 +21,17 @@ AFRAME.registerComponent('cursor-interaction', {
       // }
     });
 
-/*    document.addEventListener('touchstart',function start(e){
+   document.addEventListener('touchstart',function start(e){
+      console.log("PLEASE BE HERE");
       document.removeEventListener('touchstart',start,false);
       var node = $(".audio-player").data("audio-node");
+      console.log(node);
       // document.getElementsByTagName('audio')[0].play();
       // document.getElementsByTagName('audio')[0].pause();
       node.start(0);
       node.stop(0);
-    },false);*/
+      //node.noteOn(0);
+   },false);
 
 
   }

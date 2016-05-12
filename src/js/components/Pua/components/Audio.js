@@ -35,7 +35,7 @@ class Audio extends React.Component{
     var data = buffer.getChannelData(0);
   var that = this;
 
-    // 
+    //
    var request = new XMLHttpRequest();
 
   request.open('GET', this.props.audioSrc, true);
@@ -52,7 +52,7 @@ class Audio extends React.Component{
         // node.start(0);
         var element = document.createElement('div');
         element.setAttribute('class','audio-player');
-        $(element).data('audio-node',node);
+        $(element).data('audio-node', node);
         document.getElementsByClassName('audio')[0].appendChild(element);
 
         var analyzer = audioCtx.createAnalyser();
@@ -81,7 +81,7 @@ class Audio extends React.Component{
   setupAudioVisualizers(audioElement){
     var AudioContext = AudioContext || webkitAudioContext || mozAudioContext;
     var audioCtx = new AudioContext();
-    
+
     var src = audioCtx.createMediaElementSource(audioElement);
 
     var analyzer = audioCtx.createAnalyser();
