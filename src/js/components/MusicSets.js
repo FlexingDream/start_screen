@@ -125,6 +125,7 @@ class MusicSets extends React.Component {
   */
   setupClickCallback = (idxClicked) => {
     return () => {
+      console.log("PLEASE");
       this.setState({
         setSelectedIndex: idxClicked
       });
@@ -151,7 +152,7 @@ class MusicSets extends React.Component {
     return (
       <Scene>
         <Camera>
-          <Cursor cursor={{fuse: true}} color="black"/>
+          <Cursor cursor={{fuse: true, timeout:2000}} color="black"/>
         </Camera>
 
         <Assets>
@@ -187,11 +188,11 @@ class MusicSets extends React.Component {
 
             } else { // Nothing selected, default animations.
               animations = [
-                <Animation key={idx +'_enter'} begin="mouseenter"
+                <Animation key={idx +'_enter'} begin="cursor-mouseenter"
                            easing="ease-in" attribute="geometry.radius"
                            dur="200" from="0.5" to="1"
                            />,
-                <Animation key={idx +'_leave'} begin="mouseleave"
+                         <Animation key={idx +'_leave'} begin="cursor-mouseleave"
                            easing="ease-in" attribute="geometry.radius"
                            dur="200" from="1" to="0.5"
                            />

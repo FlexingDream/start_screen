@@ -16,11 +16,11 @@ export default props => {
   return (
     <Entity cursor={props.cursor} geometry={geometry} material={material} position="0 0 -1">
 
-      <Animation attribute="scale" begin="click" dur="150" fill="backwards"
-                 to="0 0 0"/>
-      <Animation attribute="scale" begin="fusing" easing="ease-in"
-                 fill="forwards" from="1 1 1" to="0.1 0.1 0.1"
-                 dur="1500"/>
+     <Animation attribute="scale" begin="cursor-click" dur="150" fill="backwards"
+               to="0 0 0"/>
+     <Animation attribute="scale" begin="cursor-fusing" easing="ease-in"
+       fill="backwards" from="1 1 1" to="0.1 0.1 0.1"
+       dur="1500"/>
 
     </Entity>
   );
