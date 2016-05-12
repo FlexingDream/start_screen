@@ -66,8 +66,9 @@ class BoilerplateScene extends React.Component {
         </Camera>
         <Sky color='#1D2327'/>
         <a-image src="#loading" position="0 10 -5" visible='false'></a-image>
+        <Pulse position={[0,14,0]} heights={this.state.heights}/>
         <Waveform heights={this.state.heights}/>
-        <Pulse heights={this.state.heights}/>
+        <Pulse position={[0,5,0]} heights={this.state.heights}/>
         <RainingObjects animationDirection='alternate' mixin='snow' spread="25" numElements="250"/>
       </Scene>
     );
@@ -133,7 +134,7 @@ class Waveform extends React.Component{
       elements.push(newElement);
     }
     return(
-      <Entity>
+      <Entity position={[0, 3, 0]}>
         <Animation attribute="rotation" to="0 360 0" dur="50000" repeat="indefinite" direction="alternate"/>
         {elements}
       </Entity>
@@ -161,7 +162,7 @@ class Pulse extends React.Component{
       var newElement = React.cloneElement(template, {position: [0,0,i], geometry: {radius: this.props.heights[i]/50}},null);
       elements.push(newElement);
     }
-    return(<Entity cursor-listener class="lookable" look-at='[camera]'>{elements}</Entity>);
+    return(<Entity position={this.props.position} cursor-listener class="lookable" look-at='[camera]'>{elements}</Entity>);
   }
 
 }
