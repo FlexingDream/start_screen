@@ -30,10 +30,7 @@ class Audio extends React.Component{
     var AudioContext = AudioContext || webkitAudioContext || mozAudioContext;
     var audioCtx = new AudioContext();
     var node = audioCtx.createBufferSource();
-      // createBuffer(channels, samples, sampleRate)
-    var buffer = audioCtx.createBuffer(1, 4096, audioCtx.sampleRate);
-    var data = buffer.getChannelData(0);
-  var that = this;
+    var that = this;
 
     //
    var request = new XMLHttpRequest();
@@ -45,28 +42,39 @@ class Audio extends React.Component{
   request.onload = function() {
     var audioData = request.response;
 
+
+
     audioCtx.decodeAudioData(audioData, function(buffer) {
-        node.buffer = buffer;
-        node.loop = true;
-        node.connect(audioCtx.destination);
-        // node.start(0);
-        var element = document.createElement('div');
-        element.setAttribute('class','audio-player');
-        $(element).data('audio-node', node);
-        document.getElementsByClassName('audio')[0].appendChild(element);
 
+        // Setup Analyzer and connect to final desntination
         var analyzer = audioCtx.createAnalyser();
-
-        node.connect(analyzer);
         analyzer.connect(audioCtx.destination);
 
-
         analyzer.fftSize = that.props.fastFourierTransform;
-
         // FrequencyBinCount is unsigned long value HALF That of the FFT size
         that.state.frequencyData = new Uint8Array(analyzer.frequencyBinCount);
         analyzer.getByteFrequencyData(that.state.frequencyData);
         that.state.analyzer = analyzer;
+
+        var domAudioNodeHelper = {
+          nodeBufferSrc: audioCtx.createBufferSource(),
+          setupNodeBuffer: function(){
+            // Regenerate a new buffer source and connect it with the decoded
+            // buffer.
+            this.nodeBufferSrc = audioCtx.createBufferSource();
+            this.nodeBufferSrc.buffer = buffer;
+            this.nodeBufferSrc.loop = true;
+
+            // Connect to created analyzer.
+            this.nodeBufferSrc.connect(analyzer);
+          }
+        };
+
+        // Put it into dom for access
+        var element = document.createElement('div');
+        element.setAttribute('class','audio-player');
+        $(element).data('audio-node', domAudioNodeHelper);
+        document.getElementsByClassName('audio')[0].appendChild(element);
 
 
         var animationLoadIn = document.createElement('a-animation');

@@ -63,7 +63,7 @@ console.log("WOW");
 ReactDOM.render((
     <Router history={browserHistory}>
       <Route path='/'>
-        <IndexRoute component={MusicSets}/>
+        <IndexRoute component={PuaMainScene}/>
         <Route path='derp' component={PuaMainScene} />
         <Route path='*' component={NoMatch} />
       </Route>

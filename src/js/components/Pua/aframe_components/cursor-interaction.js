@@ -5,38 +5,69 @@ AFRAME.registerComponent('cursor-interaction', {
 
   init: function () {
     var el = this.el;
-    var data = this;data
+    var data = this;
     // Set color using raycaster parent color.
-    el.addEventListener('cursor-click', function (evt) {
+
+    /**
+      Main fuse click listener to actually play the music.
+    */
+    el.addEventListener('click', function (evt) {
       console.log(evt);
 
-      // if (!data.startPlay){
-        // document.getElementsByTagName('audio')[0].play();
-        var node = $(".audio-player").data("audio-node");
+      // Get the audio helper
+      var audioHelper = $(".audio-player").data("audio-node");
 
-        if (node){
-          node.start(0);
-        }
-
-      // }
-    });
-
-   document.addEventListener('touchstart',function start(e){
-      console.log("PLEASE BE HERE");
-
-      var node = $(".audio-player").data("audio-node");
-      console.log(node);
-      if (node === undefined){
-        console.log('node undefined, not removing listener');
+      // If it doesn't exist yet, just return.
+      if (audioHelper === undefined){
+        console.log("Audio Helper not defined, returning");
         return;
       }
+
+      // Just stop the current nodeBufferSrc just in case.
+      try {
+        audioHelper.nodeBufferSrc.stop(0);
+      } catch(err){
+        console.log("Catched in click : ", err);
+      }
+      // It exists! Regenerate buffer source and start playing.
+      audioHelper.setupNodeBuffer();
+      audioHelper.nodeBufferSrc.start(0);
+
+    });
+
+    /**
+      Fix for IOS, where a user touch has to be done first for any song to play
+      This will start and stop the song, so the main fuse click will work.
+    */
+    document.addEventListener('touchstart',function start(e){
+      console.log("#touchstart");
+
+      // Get the audioHelper
+      var audioHelper = $(".audio-player").data("audio-node");
+
+      // If it's not defined, we just return.
+      if (audioHelper === undefined){
+        console.log('audoHelper undefined, not removing listener');
+        return;
+      }
+
+      // Touch detected and it exists, we remove the current listener.
       document.removeEventListener('touchstart',start,false);
-      // document.getElementsByTagName('audio')[0].play();
-      // document.getElementsByTagName('audio')[0].pause();
-      node.start(0);
-      node.stop(0);
-      //node.noteOn(0);
-   },false);
+
+      // Just stop the current nodeBufferSrc just in case.
+      try {
+        audioHelper.nodeBufferSrc.stop(0);
+      } catch(err){
+        console.log("Catched in touch : ", err);
+      }
+
+      // Regenerate buffer source, start and stop the song so that fuse click
+      // will play music.
+      audioHelper.setupNodeBuffer();
+      audioHelper.nodeBufferSrc.start(0);
+      audioHelper.nodeBufferSrc.stop(0);
+
+    },false);
 
 
   }

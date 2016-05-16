@@ -188,11 +188,11 @@ class MusicSets extends React.Component {
 
             } else { // Nothing selected, default animations.
               animations = [
-                <Animation key={idx +'_enter'} begin="cursor-mouseenter"
+                <Animation key={idx +'_enter'} begin="mouseenter"
                            easing="ease-in" attribute="geometry.radius"
                            dur="200" from="0.5" to="1"
                            />,
-                         <Animation key={idx +'_leave'} begin="cursor-mouseleave"
+                         <Animation key={idx +'_leave'} begin="mouseleave"
                            easing="ease-in" attribute="geometry.radius"
                            dur="200" from="1" to="0.5"
                            />

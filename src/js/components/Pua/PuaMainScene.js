@@ -55,14 +55,14 @@ class BoilerplateScene extends React.Component {
   render () {
     var mixins = this.getMixins();
     return (
-      <Scene stats>
+      <Scene>
         <a-assets>
           <img id="loading" src="img/loading.jpg"/>
           {mixins}
         </a-assets>
         <Audio  audioSrc={this.state.song} frequencySize={this.props.frequencySize} refreshRate={this.props.refreshRate}/>
         <Camera position={[0,10,0]}>
-          <Cursor />
+          <Cursor color='black'/>
         </Camera>
         <Sky color='#1D2327'/>
         <a-image src="#loading" position="0 10 -5" visible='false'></a-image>
