@@ -131,7 +131,7 @@ class MusicSets extends React.Component {
       });
       this.timer = setTimeout(()=> {
         this.linkToSets();
-      }, 5000);
+      }, 3000);
     }
   }
 

@@ -32,7 +32,7 @@ class BoilerplateScene extends React.Component {
         y: 0,
         z: 0,
       },
-      song: 'https://cdn.rawgit.com/FlexingDream/aframe_demo/master/src/audio/alesso.mp3'
+      song: 'audio/alesso_small.mp3'
     }
   }
 

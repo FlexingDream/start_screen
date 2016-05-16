@@ -57,7 +57,7 @@ class Audio extends React.Component{
         that.state.analyzer = analyzer;
 
         var domAudioNodeHelper = {
-          nodeBufferSrc: audioCtx.createBufferSource(),
+          nodeBufferSrc: null,
           setupNodeBuffer: function(){
             // Regenerate a new buffer source and connect it with the decoded
             // buffer.
@@ -69,6 +69,7 @@ class Audio extends React.Component{
             this.nodeBufferSrc.connect(analyzer);
           }
         };
+        domAudioNodeHelper.setupNodeBuffer();
 
         // Put it into dom for access
         var element = document.createElement('div');

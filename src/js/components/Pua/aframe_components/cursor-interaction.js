@@ -23,14 +23,7 @@ AFRAME.registerComponent('cursor-interaction', {
         return;
       }
 
-      // Just stop the current nodeBufferSrc just in case.
-      try {
-        audioHelper.nodeBufferSrc.stop(0);
-      } catch(err){
-        console.log("Catched in click : ", err);
-      }
-      // It exists! Regenerate buffer source and start playing.
-      audioHelper.setupNodeBuffer();
+      // It exists! Start playing.
       audioHelper.nodeBufferSrc.start(0);
 
     });
@@ -54,7 +47,7 @@ AFRAME.registerComponent('cursor-interaction', {
       // Touch detected and it exists, we remove the current listener.
       document.removeEventListener('touchstart',start,false);
 
-      // Just stop the current nodeBufferSrc just in case.
+      // Just stop the current nodeBufferSrc just in case someone hovered.
       try {
         audioHelper.nodeBufferSrc.stop(0);
       } catch(err){
@@ -66,6 +59,7 @@ AFRAME.registerComponent('cursor-interaction', {
       audioHelper.setupNodeBuffer();
       audioHelper.nodeBufferSrc.start(0);
       audioHelper.nodeBufferSrc.stop(0);
+      audioHelper.setupNodeBuffer();
 
     },false);
 
