@@ -134,6 +134,24 @@ class MusicSets extends React.Component {
       }, 3000);
     }
   }
+  /**
+    #setupMouseEnterCallback
+    Helps in listening to the mouse enter on the sphere and changes state
+    to render animations. We need this as we don't want leaky animatons that
+    listen
+  */
+  setupMouseEnterCallback = (idxClicked) => {
+
+  }
+
+  /**
+    #setupMouseLeaveCallback
+    Helps in listening to mouse leave on the sphere and changes state to render
+    animations.
+  */
+  setupMouseLeaveCallback = (idxClicked) => {
+    
+  }
 
   linkToSets = () => {
     browserHistory.push('derp');
@@ -205,7 +223,9 @@ class MusicSets extends React.Component {
                       geometry={{primitive: 'sphere', radius: 0.5}}
                       material={{color: set.colour, shader: 'flat'}}
                       position={set.position} scale="1 1 -1"
-                      onClick={this.setupClickCallback(idx)}>
+                      onClick={this.setupClickCallback(idx)}
+                      onMouseEnter={this.setupMouseEnterCallback(idx)}
+                      onMouseLeave={this.setupMouseLeaveCallback(idx)}>
                 {animations}
               </Entity>
             )
